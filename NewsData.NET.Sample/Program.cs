@@ -17,10 +17,15 @@ qs.Add("size", "10");
 qs.Add("category", "sports,top");
 qs.Add("timeframe", "6");
 
-var news = await request.ExecuteAsync(qs);
+var newsResult = await request.ExecuteAsync(qs);
 
-var serialize = JsonSerializer.Serialize(news);
+if (!newsResult.IsSuccessStatusCode)
+{
+    throw new HttpRequestException(newsResult.ErrorMessage, newsResult.ErrorException);
+}
 
-Console.WriteLine(serialize);
+var newsJson = JsonSerializer.Serialize(newsResult.Data);
+
+Console.WriteLine(newsJson);
 
 Console.ReadLine();

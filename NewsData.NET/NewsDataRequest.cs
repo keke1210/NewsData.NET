@@ -1,5 +1,4 @@
 ﻿using RestSharp;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +10,7 @@ namespace NewsData.NET
         private readonly string _apiKey;
         public NewsDataRequest(string apiKey) => _apiKey = apiKey;
 
-        public async Task<NewsDataResult> ExecuteAsync(IEnumerable<KeyValuePair<string, string>> queryStringCollection)
+        public async Task<RestResponse<NewsDataResult>> ExecuteAsync(IEnumerable<KeyValuePair<string, string>> queryStringCollection)
         {
             var request = new RestRequest();
             request.AddQueryParameter("apikey", _apiKey);
@@ -23,14 +22,7 @@ namespace NewsData.NET
 
             using (var client = new RestClient(BaseURL))
             {
-                var result = await client.ExecuteAsync<NewsDataResult>(request).ConfigureAwait(false);
-
-                if (!result.IsSuccessStatusCode)
-                {
-                    throw new Exception("Error occurred KNP");
-                }
-
-                return result.Data;
+                return await client.ExecuteAsync<NewsDataResult>(request).ConfigureAwait(false);
             }
         }
     }
