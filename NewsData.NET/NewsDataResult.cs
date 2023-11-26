@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NewsData.NET
 {
-    public class Result
+    public sealed class Result
     {
         [JsonPropertyName("article_id")]
         public string ArticleId { get; set; }
@@ -15,13 +15,13 @@ namespace NewsData.NET
         public string Link { get; set; }
 
         [JsonPropertyName("keywords")]
-        public object Keywords { get; set; }
+        public List<string> Keywords { get; set; }
 
         [JsonPropertyName("creator")]
         public List<string> Creator { get; set; }
 
         [JsonPropertyName("video_url")]
-        public object VideoUrl { get; set; }
+        public string VideoUrl { get; set; }
 
         [JsonPropertyName("description")]
         public string Description { get; set; }
