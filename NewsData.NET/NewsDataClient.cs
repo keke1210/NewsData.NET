@@ -16,17 +16,28 @@ namespace NewsData.NET
 
         private readonly string _apiKey;
         private readonly IRestClient _client;
-        public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false)
+
+        private NewsDataClient(ClientType clientType, string apiKey)
         {
-            BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new ArgumentNullException(nameof(apiKey));
+            }
+
             _apiKey = apiKey;
+
+            BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
+        }
+
+        public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false)
+            : this(clientType, apiKey)
+        {
             _client = new RestClient(baseUrl: new Uri(BaseURL), useClientFactory: useClientFactory);
         }
 
         public NewsDataClient(ClientType clientType, string apiKey, HttpClient client)
+            : this(clientType, apiKey)
         {
-            BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
-            _apiKey = apiKey;
             _client = new RestClient(client, configureRestClient: (options) =>
             {
                 options.BaseUrl = new Uri(BaseURL);
@@ -88,13 +99,13 @@ namespace NewsData.NET
                 case ClientType.NewsSources:
                     return "sources";
                 default:
-                    throw new ArgumentNullException(nameof(clientType));
+                    throw new ArgumentException(nameof(clientType));
             }
         }
 
         public void Dispose()
         {
-            _client?.Dispose();
+            _client.Dispose();
         }
     }
 }
