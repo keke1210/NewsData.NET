@@ -3,9 +3,9 @@
     public enum ClientType
     {
         None = 0,
-        News,
-        Crypto,
-        Archive,
-        Sources
+        LatestNews,
+        CryptoNews,
+        NewsArchive,
+        NewsSources
     }
 }

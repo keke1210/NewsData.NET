@@ -79,13 +79,13 @@ namespace NewsData.NET
         {
             switch (clientType)
             {
-                case ClientType.News:
+                case ClientType.LatestNews:
                     return "news";
-                case ClientType.Crypto:
+                case ClientType.CryptoNews:
                     return "crypto";
-                case ClientType.Archive:
+                case ClientType.NewsArchive:
                     return "archive";
-                case ClientType.Sources:
+                case ClientType.NewsSources:
                     return "sources";
                 default:
                     throw new ArgumentNullException(nameof(clientType));

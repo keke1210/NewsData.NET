@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Text.Json;
 
 var apiKey = ConfigurationManager.AppSettings["NEWS_DATA_API_KEY"];
-using INewsDataClient client = new NewsDataClient(ClientType.News, apiKey);
+using INewsDataClient client = new NewsDataClient(ClientType.LatestNews, apiKey);
 
 var queryString = new Dictionary<string, string>
 {
