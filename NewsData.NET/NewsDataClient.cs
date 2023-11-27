@@ -25,18 +25,16 @@ namespace NewsData.NET
             }
 
             BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
-            
+
             _apiKey = apiKey;
         }
 
-        public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false)
-            : this(clientType, apiKey)
+        public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false) : this(clientType, apiKey)
         {
             _client = new RestClient(baseUrl: new Uri(BaseURL), useClientFactory: useClientFactory);
         }
 
-        public NewsDataClient(ClientType clientType, string apiKey, HttpClient client)
-            : this(clientType, apiKey)
+        public NewsDataClient(ClientType clientType, string apiKey, HttpClient client) : this(clientType, apiKey)
         {
             _client = new RestClient(client, configureRestClient: (options) =>
             {
@@ -88,19 +86,14 @@ namespace NewsData.NET
 
         private static string GetUrlRoute(ClientType clientType)
         {
-            switch (clientType)
+            return clientType switch
             {
-                case ClientType.LatestNews:
-                    return "news";
-                case ClientType.CryptoNews:
-                    return "crypto";
-                case ClientType.NewsArchive:
-                    return "archive";
-                case ClientType.NewsSources:
-                    return "sources";
-                default:
-                    throw new ArgumentException(nameof(clientType));
-            }
+                ClientType.LatestNews => "news",
+                ClientType.CryptoNews => "crypto",
+                ClientType.NewsArchive => "archive",
+                ClientType.NewsSources => "sources",
+                _ => throw new ArgumentException(nameof(clientType)),
+            };
         }
 
         public void Dispose()
