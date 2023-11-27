@@ -7,23 +7,25 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NewsData.NET.Clients.Base
+namespace NewsData.NET.Clients
 {
-    public abstract class BaseNewsDataClient : INewsDataClient
+    public sealed class NewsDataClient : INewsDataClient
     {
-        protected const string BaseAPIURL = "https://newsdata.io/api/1/";
-        protected abstract string BaseURL { get; }
+        public const string BaseAPIURL = "https://newsdata.io/api/1/";
+        public string BaseURL { get; }
 
         private readonly string _apiKey;
         private readonly IRestClient _client;
-        protected BaseNewsDataClient(string apiKey, bool useClientFactory = false)
+        public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false)
         {
+            BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
             _apiKey = apiKey;
             _client = new RestClient(baseUrl: new Uri(BaseURL), useClientFactory: useClientFactory);
         }
 
-        public BaseNewsDataClient(string apiKey, HttpClient client)
+        public NewsDataClient(ClientType clientType, string apiKey, HttpClient client)
         {
+            BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
             _apiKey = apiKey;
             _client = new RestClient(client, configureRestClient: (options) =>
             {
@@ -73,29 +75,26 @@ namespace NewsData.NET.Clients.Base
             return result;
         }
 
-        private bool disposed = false;
-        protected virtual void Dispose(bool disposing)
+        private static string GetUrlRoute(ClientType clientType)
         {
-            if (!disposed)
+            switch (clientType)
             {
-                if (disposing)
-                {
-                    _client.Dispose();
-                }
-
-                disposed = true;
+                case ClientType.News:
+                    return "news";
+                case ClientType.Crypto:
+                    return "crypto";
+                case ClientType.Archive:
+                    return "archive";
+                case ClientType.Sources:
+                    return "sources";
+                default:
+                    throw new ArgumentNullException(nameof(clientType));
             }
         }
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~BaseNewsDataClient()
-        {
-            Dispose(false);
+            _client?.Dispose();
         }
     }
 }
