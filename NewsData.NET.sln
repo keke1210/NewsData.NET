@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsData.NET.Sample", "NewsData.NET.Sample\NewsData.NET.Sample.csproj", "{D7796C95-5FBF-4018-B06D-3901A10292AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsData.NET.Sample", "NewsData.NET.Sample\NewsData.NET.Sample.csproj", "{D7796C95-5FBF-4018-B06D-3901A10292AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsData.NET", "NewsData.NET\NewsData.NET.csproj", "{0632F27A-2E20-4679-BFCB-BD724C7FF60D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsData.NET", "NewsData.NET\NewsData.NET.csproj", "{0632F27A-2E20-4679-BFCB-BD724C7FF60D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

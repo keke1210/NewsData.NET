@@ -2,7 +2,30 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Company>$(Authors)</Company>
+    <Description>NewsData.NET is an unofficial .NET client package for the News Data API, designed to facilitate easy access to various news-related data.</Description>
+    <RepositoryUrl>https://github.com/keke1210/NewsData.NET</RepositoryUrl>
+    <Title>.NET client package for the News Data API</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>newsdata-icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Authors>Skerdi Berberi</Authors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Downloads\newsdata-icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="110.2.0" />

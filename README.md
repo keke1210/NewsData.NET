@@ -1,10 +1,20 @@
 # NewsData.NET
 
+[![NuGet](https://img.shields.io/nuget/v/NewsData.NET.svg)](https://www.nuget.org/packages/NewsData.NET/)
+[![NuGetCount](https://img.shields.io/nuget/dt/NewsData.NET.svg
+)](https://www.nuget.org/packages/NewsData.NET/)
+
 NewsData.NET is an unofficial .NET client package for the News Data API, designed to facilitate easy access to various news-related data. This package is compatible with [.NET Standard 2.1](https://github.com/dotnet/docs/blob/main/includes/net-standard-2.1.md).
 
 ## Documentation
 
 News Data API docs can be seen [here](https://newsdata.io/documentation).
+
+## Installation
+
+```
+dotnet add package NewsData.NET
+```
 
 ## Usage
 
