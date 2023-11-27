@@ -2,6 +2,7 @@
 using NewsData.NET.ObjectModels.ResponseModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace NewsData.NET
                 apiRequest.PageIndex = newsResult?.NextPage;
 
                 var apiResponse = await client.ExecuteAsync(apiRequest, cancellationToken);
-                if (!apiResponse.Successful || apiResponse.SuccessResult.Results.Count == 0)
+                if (!apiResponse.Successful || apiResponse.SuccessResult.Results is null || !apiResponse.SuccessResult.Results.Any())
                 {
                     break;
                 }
@@ -37,7 +38,7 @@ namespace NewsData.NET
                 newsResult = apiResponse.SuccessResult;
                 results.AddRange(newsResult.Results);
 
-                if (newsResult.NextPage == null)
+                if (newsResult.NextPage is null)
                 {
                     break;
                 }

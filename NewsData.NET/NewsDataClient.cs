@@ -24,9 +24,9 @@ namespace NewsData.NET
                 throw new ArgumentNullException(nameof(apiKey));
             }
 
-            _apiKey = apiKey;
-
             BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
+            
+            _apiKey = apiKey;
         }
 
         public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false)
@@ -58,14 +58,14 @@ namespace NewsData.NET
             var request = new RestRequest();
             request.AddQueryParameter("apikey", _apiKey);
 
-            if (!string.IsNullOrWhiteSpace(apirequest.PageIndex))
-            {
-                request.AddQueryParameter("page", apirequest.PageIndex);
-            }
-
             foreach (var queryStringParam in apirequest.QueryStringCollection)
             {
                 request.AddQueryParameter(queryStringParam.Key, queryStringParam.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(apirequest.PageIndex))
+            {
+                request.AddOrUpdateParameter("page", apirequest.PageIndex);
             }
 
             return request;
