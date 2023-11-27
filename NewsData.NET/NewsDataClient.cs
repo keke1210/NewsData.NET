@@ -11,11 +11,10 @@ namespace NewsData.NET
 {
     public sealed class NewsDataClient : INewsDataClient
     {
-        public const string BaseAPIURL = "https://newsdata.io/api/1/";
-        public string BaseURL { get; }
-
+        private const string BaseUrl = "https://newsdata.io/api/1/";
         private readonly string _apiKey;
         private readonly IRestClient _client;
+        public string ApiUrl { get; }
 
         private NewsDataClient(ClientType clientType, string apiKey)
         {
@@ -34,19 +33,19 @@ namespace NewsData.NET
             };
 
             _apiKey = apiKey;
-            BaseURL = $"{BaseAPIURL}{route}";
+            ApiUrl = $"{BaseUrl}{route}";
         }
 
         public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false) : this(clientType, apiKey)
         {
-            _client = new RestClient(baseUrl: new Uri(BaseURL), useClientFactory: useClientFactory);
+            _client = new RestClient(baseUrl: new Uri(ApiUrl), useClientFactory: useClientFactory);
         }
 
         public NewsDataClient(ClientType clientType, string apiKey, HttpClient client) : this(clientType, apiKey)
         {
             _client = new RestClient(client, configureRestClient: (options) =>
             {
-                options.BaseUrl = new Uri(BaseURL);
+                options.BaseUrl = new Uri(ApiUrl);
             });
         }
 
