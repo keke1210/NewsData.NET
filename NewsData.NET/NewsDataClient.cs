@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NewsData.NET.Clients
+namespace NewsData.NET
 {
     public sealed class NewsDataClient : INewsDataClient
     {

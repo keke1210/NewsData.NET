@@ -1,5 +1,4 @@
 ﻿using NewsData.NET;
-using NewsData.NET.Clients;
 using System.Configuration;
 using System.Text.Json;
 

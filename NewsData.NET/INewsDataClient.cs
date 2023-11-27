@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System;
 
-namespace NewsData.NET.Clients
+namespace NewsData.NET
 {
     public interface INewsDataClient : IDisposable
     {

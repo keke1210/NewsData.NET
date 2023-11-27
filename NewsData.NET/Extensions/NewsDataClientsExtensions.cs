@@ -1,5 +1,4 @@
-﻿using NewsData.NET.Clients;
-using NewsData.NET.ObjectModels.RequestModels;
+﻿using NewsData.NET.ObjectModels.RequestModels;
 using NewsData.NET.ObjectModels.ResponseModels;
 using System;
 using System.Collections.Generic;
