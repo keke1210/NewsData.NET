@@ -1,30 +1,27 @@
 ﻿using NewsData.NET;
+using NewsData.NET.Clients;
 using System.Configuration;
 using System.Text.Json;
 
 var apiKey = ConfigurationManager.AppSettings["NEWS_DATA_API_KEY"];
+using INewsDataClient client = new LatestNewsDataClient(apiKey);
 
-var request = new NewsDataRequest(apiKey);
-
-var qs = new Dictionary<string, string>();
-qs.Add("country", "al");
-qs.Add("language", "sq");
-qs.Add("timezone", "Europe/Berlin");
-qs.Add("full_content", "1");
-//qs.Add("image", "1");
-//qs.Add("video", "1");
-qs.Add("size", "10");
-qs.Add("category", "sports,top");
-qs.Add("timeframe", "6");
-
-var newsResult = await request.ExecuteAsync(qs);
-
-if (!newsResult.IsSuccessStatusCode)
+var queryString = new Dictionary<string, string>
 {
-    throw new HttpRequestException(newsResult.ErrorMessage, newsResult.ErrorException);
-}
+    { "country", "al" },
+    { "language", "sq" },
+    { "timezone", "Europe/Berlin" },
+    { "full_content", "1" },
+    { "size", "10" }, // free tier
+    //{ "category", "sports,top" },
+    { "timeframe", "24" },
+    //{ "image", "1" },
+    //{ "video", "1" }
+};
 
-var newsJson = JsonSerializer.Serialize(newsResult.Data);
+var results = await client.AggregatePagedNewsAsync(queryString, articlesToBeFetched: 25);
+
+var newsJson = JsonSerializer.Serialize(results);
 
 Console.WriteLine(newsJson);
 
