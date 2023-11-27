@@ -21,12 +21,20 @@ namespace NewsData.NET
         {
             if (string.IsNullOrWhiteSpace(apiKey))
             {
-                throw new ArgumentNullException(nameof(apiKey));
+                throw new ArgumentException(nameof(apiKey));
             }
 
-            BaseURL = $"{BaseAPIURL}{GetUrlRoute(clientType)}";
+            string route = clientType switch
+            {
+                ClientType.LatestNews => "news",
+                ClientType.CryptoNews => "crypto",
+                ClientType.NewsArchive => "archive",
+                ClientType.NewsSources => "sources",
+                _ => throw new ArgumentException(nameof(clientType)),
+            };
 
             _apiKey = apiKey;
+            BaseURL = $"{BaseAPIURL}{route}";
         }
 
         public NewsDataClient(ClientType clientType, string apiKey, bool useClientFactory = false) : this(clientType, apiKey)
@@ -42,7 +50,7 @@ namespace NewsData.NET
             });
         }
 
-        public async Task<NewsDataApiResult> ExecuteAsync(DefaultRequest apirequest, CancellationToken cancellationToken = default)
+        public async Task<NewsDataApiResult> GetAsync(DefaultRequest apirequest, CancellationToken cancellationToken = default)
         {
             RestRequest request = CreateRequest(apirequest);
 
@@ -82,18 +90,6 @@ namespace NewsData.NET
 
             result.SuccessResult = JsonSerializer.Deserialize<SuccessNewsDataResult>(restResult.Content);
             return result;
-        }
-
-        private static string GetUrlRoute(ClientType clientType)
-        {
-            return clientType switch
-            {
-                ClientType.LatestNews => "news",
-                ClientType.CryptoNews => "crypto",
-                ClientType.NewsArchive => "archive",
-                ClientType.NewsSources => "sources",
-                _ => throw new ArgumentException(nameof(clientType)),
-            };
         }
 
         public void Dispose()

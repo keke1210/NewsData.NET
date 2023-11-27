@@ -29,7 +29,8 @@ namespace NewsData.NET
                 apiRequest.QueryStringCollection["size"] = pageSize.ToString();
                 apiRequest.PageIndex = newsResult?.NextPage;
 
-                var apiResponse = await client.ExecuteAsync(apiRequest, cancellationToken);
+                var apiResponse = await client.GetAsync(apiRequest, cancellationToken);
+                
                 if (!apiResponse.Successful || apiResponse.SuccessResult.Results is null || !apiResponse.SuccessResult.Results.Any())
                 {
                     break;

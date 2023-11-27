@@ -8,6 +8,6 @@ namespace NewsData.NET
 {
     public interface INewsDataClient : IDisposable
     {
-        Task<NewsDataApiResult> ExecuteAsync(DefaultRequest apirequest, CancellationToken cancellationToken = default);
+        Task<NewsDataApiResult> GetAsync(DefaultRequest apirequest, CancellationToken cancellationToken = default);
     }
 }
