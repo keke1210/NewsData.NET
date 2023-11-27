@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace NewsData.NET
+namespace NewsData.NET.ObjectModels.ResponseModels
 {
-    public sealed class Result
+    public sealed class SuccessResult
     {
         [JsonPropertyName("article_id")]
         public string ArticleId { get; set; }
@@ -49,20 +49,5 @@ namespace NewsData.NET
 
         [JsonPropertyName("language")]
         public string Language { get; set; }
-    }
-
-    public class NewsDataResult
-    {
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-
-        [JsonPropertyName("totalResults")]
-        public int TotalResults { get; set; }
-
-        [JsonPropertyName("results")]
-        public List<Result> Results { get; set; }
-
-        [JsonPropertyName("nextPage")]
-        public string NextPage { get; set; }
     }
 }
