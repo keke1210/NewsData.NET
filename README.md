@@ -51,6 +51,14 @@ var results = await client.AggregatePagedNewsAsync(queryString, articlesToBeFetc
 // The result will be a list of NewsData.NET.ObjectModels.ResponseModels.SuccessResult
 ```
 
+
+## Dependencies
+
+### RestSharp
+
+This package relies on the RestSharp library, a popular .NET library used for making HTTP requests. Ensure that you have the RestSharp package installed in your project.
+https://github.com/restsharp/RestSharp
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
